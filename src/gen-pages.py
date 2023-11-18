@@ -2,6 +2,8 @@
 import os
 import glob
 import markdown
+from template import header
+from template import footer
 
 if not os.path.exists('docs'):
     os.mkdir('docs')
@@ -15,16 +17,6 @@ for f in glob.iglob('book/*.md'):
     destination = os.path.join("docs", os.path.splitext(file_name)[0] + ".html")
 
     with open(destination, 'w') as file:
-        file.write(r'''<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <title>My Great Site</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-''')
+        file.write(header)
         file.write(html)
-        file.write(r'''
-</body>
-</html>''')
+        file.write(footer)

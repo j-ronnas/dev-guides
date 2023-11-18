@@ -2,6 +2,8 @@
 import os
 import glob
 import markdown
+from template import header
+from template import footer
 
 pages = {}
 destination = "index.html"
@@ -21,18 +23,8 @@ for f in glob.iglob('book/*.md'):
 
     
 with open(os.path.join("docs", destination), 'w') as file:
-    file.write(r'''<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <title>My Great Site</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-''')
+    file.write(header)
     for p in pages:
         file.write("<a href=\""+ toHtmlPageName(pages[p]) + "\">" + p + "</a>")
     
-    file.write(r'''
-</body>
-</html>''')
+    file.write(footer)
