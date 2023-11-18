@@ -26,6 +26,7 @@ with open(os.path.join("public", destination), 'w') as file:
 <head>
   <meta charset="utf-8" />
   <title>My Great Site</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 ''')

@@ -20,6 +20,7 @@ for f in glob.iglob('book/*.md'):
 <head>
   <meta charset="utf-8" />
   <title>My Great Site</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 ''')
