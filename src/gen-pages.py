@@ -3,8 +3,8 @@ import os
 import glob
 import markdown
 
-if not os.path.exists('public'):
-    os.mkdir('public')
+if not os.path.exists('docs'):
+    os.mkdir('docs')
 
 for f in glob.iglob('book/*.md'):
     with open(f, 'r') as file:
@@ -12,7 +12,7 @@ for f in glob.iglob('book/*.md'):
         html = markdown.markdown(raw)
 
     file_name = os.path.basename(f)
-    destination = os.path.join("public", os.path.splitext(file_name)[0] + ".html")
+    destination = os.path.join("docs", os.path.splitext(file_name)[0] + ".html")
 
     with open(destination, 'w') as file:
         file.write(r'''<!DOCTYPE html>

@@ -11,8 +11,8 @@ def toHtmlPageName(mdname):
     return mdname.split(".")[0].split("/")[1] + ".html"
 
 
-if not os.path.exists('public'):
-    os.mkdir('public')
+if not os.path.exists('docs'):
+    os.mkdir('docs')
 
 for f in glob.iglob('book/*.md'):
     with open(f, 'r') as file:
@@ -20,7 +20,7 @@ for f in glob.iglob('book/*.md'):
        pages[title] = f
 
     
-with open(os.path.join("public", destination), 'w') as file:
+with open(os.path.join("docs", destination), 'w') as file:
     file.write(r'''<!DOCTYPE html>
 <html lang="en">
 <head>
