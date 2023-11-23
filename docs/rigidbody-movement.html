@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Dev Guides</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Hack&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="prism.css">
+  <script defer src="prism.js"></script>
+</head>
+<body>
+<div class="guide"><h1>Guide: Spelarrörelse med rigidbody</h1>
+<h3>Rigidbody</h3>
+<p>En rigidbody i Unity är en <em>komponent</em> som man kan lägga till på ett objekt. Det objektet kan då interagera med fysiksystemet och agerar som ett fysiskt objekt med gravitation, kollisioner och krafter. För att lägga till en rigibody gör du följande:</p>
+<ol>
+<li>Markera objektet i scen-vyn.</li>
+<li>Scrolla längst ner i inspektorn</li>
+<li>Tryck på knappen Add Component</li>
+<li>Klicka dig fram eller sök efter rigidbody</li>
+<li>Tryck på Rigidbody för ett 3D projekt och Rigidbody 2D för ett 2D-projekt</li>
+</ol>
+<h3>Skapa egen komponent</h3>
+<p>För att skapa spelarrörelse vill vi lägga till en egen komponent som gör följande:</p>
+<ul>
+<li>Kolla om en knapp är nertryckt</li>
+<li>Lägg till en kraft åt en given riktning</li>
+</ul>
+<p><em>Exempel: om höger pil-tangent är nertryckt, lägg till en kraft åt höger</em></p>
+<p>Först behöver vi lägga till en komponent på objektet:</p>
+<ol>
+<li>Markera objektet i scen-vyn.</li>
+<li>Scrolla längst ner i inspektorn</li>
+<li>Tryck på knappen Add Component</li>
+<li>Skriv in namnet på den nya komponenten, till exempel: <em>PlayerMovement</em></li>
+<li>Tryck på new script</li>
+<li>Kontrollera namnet, (det får inte ha mellanslag eller specialtecken) och tryck på <em>create and add</em></li>
+</ol>
+<p>Vi kan öppna skriptet genom komponenten, eller dubbelklicka på filen som har skapats i projektmappen.</p>
+<h3>Styr rigidbody i kod</h3>
+<p>I vårt nya skript vill nu kunna styra vår rigidbody med kod. För att göra detta behöver vi skapa en variabel som representerar rigidbodyn. Vi skapar en Rigidbody-variabel på samma sätt som andra variabler, dvs <code>VariabelTyp variabelNamn</code>.</p>
+<p>I unity-skriptet skriver vi alltså:</p>
+<pre><code class="language-csharp">
+public class PlayerMovement : MonoBehaviour
+{
+    Rigidbody myRigidbody;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+}
+
+</code></pre>
+<p>Vi behöver också ge variabeln <code>myRigidbody</code> ett värde. Det gör vi i start-metoden, som kör en gång i början av spelet. Vi kan få tag på den rigidbody som finns på samma objekt med metoden <code>GetComponent&lt;KomponentTyp&gt;()</code>.</p>
+<pre><code class="language-csharp">
+    // Start is called before the first frame update
+    void Start()
+    {
+        myRigidbody = GetComponent&lt;Rigidbody&gt;();
+    }
+
+</code></pre>
+<p>Nu har vi tillgång till rigidbodyn på objektet och vi anropa olika metoder på den. Framförallt vill vi använda en metod som heter <code>AddForce</code> för att applicera en kraft i en given riktning. </p>
+<pre><code class="language-csharp">//Applicera en kraft på 20 Newton i x-led
+myRigidbody.AddForce(new Vector3(20,0,0));
+</code></pre>
+<p>Så fort vi applicerar krafter och gör saker med fysisk systemet vill vi göra det i ´FixedUpdate´- metoden. Den körs ett fixt antal gånger per sekund (50 gånger per sekund), till skillnad från <code>Update</code> som kör så fort den kan.</p>
+<p>Vi lägger till ett anrop till <code>AddForce</code> tillsammans med en if-sats som kollar om höger pil-tangent trycks ner i <code>FixedUpdate</code></p>
+<pre><code class="language-csharp">void FixedUpdate()
+{
+    if(Input.GetKey(KeyCode.RightArrow)){
+        myRigidbody.AddForce(new Vector3(20,0,0));
+    }
+}
+</code></pre>
+<p>Med detta kan vi nu få vår spelare att börja röra sig åt höger när man trycker på höger pil-tangent. Eventuellt kan man behöva justera hur stor kraft som appliceras genom att ändra vektorn vi anger som argument till <code>AddForce</code>.</p>
+<p>På samma sätt kan vi styra åt vänster med en if-sats som kollar vänster pil-tanget och applicerar en kraft i negativt x-led.</p>
+<pre><code class="language-csharp">void FixedUpdate()
+{
+    if(Input.GetKey(KeyCode.RightArrow)){
+        myRigidbody.AddForce(new Vector3(20,0,0));
+    }
+
+    if(Input.GetKey(KeyCode.LeftArrow)){
+        myRigidbody.AddForce(new Vector3(-20,0,0));
+    } 
+}
+</code></pre>
+<h3>Extra</h3></div>
+
+</body>
+</html>

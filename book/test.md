@@ -1,3 +1,6 @@
+---
+title: test
+---
 # This is a test page
 
 ### We have some headings
