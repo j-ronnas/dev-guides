@@ -5,6 +5,8 @@ import markdown
 from template import header
 from template import footer
 
+structure_file = "docs/structure.txt"
+
 if not os.path.exists('docs'):
     os.mkdir('docs')
 
@@ -22,3 +24,6 @@ for f in glob.iglob('book/**/*.md', recursive = True):
         file.write(html)
         file.write(r'''</div>''')
         file.write(footer)
+
+    with open(structure_file, 'w') as file:
+         file.write(os.path.split(os.path.relpath(f, 'book'))[0] + ',' + os.path.splitext(file_name)[0])

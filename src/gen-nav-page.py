@@ -8,6 +8,14 @@ from template import footer
 pages = {}
 destination = "index.html"
 
+structure = {}
+
+with open("docs/structure.txt", 'r') as file:
+    line = file.readline()
+    parts = line.split(',')
+    structure[parts[0]] = parts[1]
+
+print(structure)
 
 def toHtmlPageName(mdname):
     return mdname.split(".")[0].split("/")[1] + ".html"
@@ -16,15 +24,17 @@ def toHtmlPageName(mdname):
 if not os.path.exists('docs'):
     os.mkdir('docs')
 
-for f in glob.iglob('book/*.md'):
+for f in glob.iglob('book/**/*.md', recursive = True):
     with open(f, 'r') as file:
        title = file.readline()
-       pages[title] = f
+       file_name = os.path.basename(f)
+       pages[title] =  os.path.splitext(file_name)[0]
 
-    
+
 with open(os.path.join("docs", destination), 'w') as file:
     file.write(header)
-    for p in pages:
-        file.write("<a href=\""+ toHtmlPageName(pages[p]) + "\">" + p + "</a>")
-    
+    for heading in structure.keys():
+        file.write("<h3>" + heading + "</h3>")
+        file.write("<a href=\""+ (structure[heading]) + '.html' + "\">" + structure[heading] + "</a>")
+
     file.write(footer)

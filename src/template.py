@@ -15,3 +15,9 @@ footer = r'''
 
 </body>
 </html>'''
+
+navPagePre = r'''
+
+<h1> Dev Guides </h1>
+
+'''
